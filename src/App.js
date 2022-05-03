@@ -1,5 +1,5 @@
 import ClientsList from './components/Clients/ClientsList';
-import ProspectsList from './components/Clients/ProspectsList ';
+import ProspectsList from './components/Prospects/ProspectsList ';
 import Layout from './components/Layout/Layout';
 import ClientProvider from './store/ClientProvider';
 

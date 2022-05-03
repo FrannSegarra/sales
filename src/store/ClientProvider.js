@@ -1,19 +1,36 @@
 import { useReducer } from 'react';
 import { Client } from '../models/client.model';
+import { Prospect } from '../models/prospect.model';
 
 import ClientsContext from './clients-context';
 
 const dummyClientData = {
-  id: 1,
+  id: 39597600,
   birthdate: new Date(),
   firstName: 'Francisco',
   lastName: 'Segarra',
   email: 'franciscosegarra@hotmail.com'
 };
 
+const dummyProspectData = {
+  id: 1,
+  client: new Client(dummyClientData),
+  score: 50
+};
+
+const dummyProspectData2 = {
+  id: 2,
+  client: new Client(dummyClientData),
+  score: 70
+};
+
 const defaultState = {
-  clients: [new Client(dummyClientData), new Client(dummyClientData), new Client(dummyClientData)],
-  prospects: [new Client(dummyClientData), new Client(dummyClientData), new Client(dummyClientData)]
+  clients: [
+    new Client(dummyClientData)
+  ],
+  prospects: [
+    new Prospect(dummyProspectData), new Prospect(dummyProspectData2)
+  ]
 }
 
 const clientsReducer = (state, action) => {
@@ -26,7 +43,7 @@ const clientsReducer = (state, action) => {
       throw new Error('The client already exists.');
     } else {
       return {
-        clients: [...state.clients, action.client],
+        clients: [action.client, ...state.clients],
         prospects: state.prospects
       }
     }
@@ -34,24 +51,37 @@ const clientsReducer = (state, action) => {
 
   if (action.type === 'REMOVE_CLIENT') {
     return {
-      clients: state.clients.filter((client) => client !== action.id),
+      clients: state.clients.filter((client) => client.id !== action.id),
       prospects: state.prospects
+    }
+  }
+
+  if (action.type === 'ADD_PROSPECT') {
+    let existingProspect = state.prospects.find(
+      (prospect) => prospect.id === action.prospect.id 
+    );
+    
+    if (existingProspect) {
+      throw new Error('The Prospect already exists.');
+    } else {
+      return {
+        clients: state.clients,
+        prospects: [action.prospect, ...state.prospects]
+      }
     }
   }
 
   if (action.type === 'REMOVE_PROSPECT') {
     return {
       clients: state.clients,
-      prospects: state.prospects.filter((prospect) => prospect !== action.id)
+      prospects: state.prospects.filter((prospect) => prospect.id !== action.id)
     }
   }
 
-  if (action.type === 'VALIDATE_CLIENT') {
-    // TODO validacion del cliente para pasar a prospect
-
+  if (action.type === 'CLEAR_PROSPECTS') {
     return {
       clients: state.clients,
-      prospects: state.prospects
+      prospects: []
     }
   }
 
@@ -69,12 +99,16 @@ const ClientProvider = (props) => {
     dispatchClientAction({ type: 'REMOVE_CLIENT', id: id });
   }
 
+  const addProspectHandler = (prospect) => {
+    dispatchClientAction({ type: 'ADD_PROSPECT', prospect: prospect });
+  }
+
   const removeProspectHandler = (id) => {
     dispatchClientAction({ type: 'REMOVE_PROSPECT', id: id });
   }
 
-  const validateClientHandler = (id) => {
-    dispatchClientAction({ type: 'VALIDATE_CLIENT', id: id });
+  const clearProspectsHandler = () => {
+    dispatchClientAction({ type: 'CLEAR_PROSPECTS' });
   }
 
   const clientsContext = {
@@ -82,8 +116,9 @@ const ClientProvider = (props) => {
     prospects: clientState.prospects,
     addClient: addClientHandler,
     removeClient: removeClientHandler,
+    addProspect: addProspectHandler,
     removeProspect: removeProspectHandler,
-    validateClient: validateClientHandler
+    clearProspects: clearProspectsHandler
   };
 
   return (

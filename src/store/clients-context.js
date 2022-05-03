@@ -5,8 +5,9 @@ const ClientsContext = React.createContext({
   prospects: [],
   addClient: (client) => {},
   removeClient: (id) => {},
+  addProspect: (prospect) => {},
   removeProspect: (id) => {},
-  validateClient: (client) => {},
+  clearProspects: () => {},
 });
 
 export default ClientsContext;

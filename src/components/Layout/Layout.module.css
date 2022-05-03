@@ -32,9 +32,15 @@
   margin: 4em 0 2em 0;
   width: 55%;
   height: 85%;
-  background-color: whitesmoke;
+  background-color: #f0eff5d4;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   z-index: 2;
+}
+
+@media only screen and (max-width: 1550px) {
+  .card {
+    width: 80%;
+  }
 }
 
 .footer {

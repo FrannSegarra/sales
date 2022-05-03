@@ -9,13 +9,21 @@ const ClientsList = () => {
   return (
     <Fragment>
       <div className={classesName.list}>
-      <h1 className={classesName.listName}>Clients</h1>
-        {clientCtx.clients.map((client) => (
-          <ClientCard
-            key={client.id}
-            client={client}
-          />
-        ))}
+      <h1 className={classesName.listName}>
+        Clients
+        <button className={classesName.titleButton}>New Client</button>
+      </h1>
+        <div className={classesName.listBody}>
+          {clientCtx.clients.length === 0 && (
+            <label className={classesName.noItems}>There are no clients, please try to create one.</label>
+          )}
+          {clientCtx.clients.map((client) => (
+            <ClientCard
+              key={client.id}
+              client={client}
+            />
+          ))}
+        </div>
       </div>
     </Fragment>
   )
