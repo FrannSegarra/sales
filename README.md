@@ -14,7 +14,7 @@ create an observable that returns a random number between 0 and 100, if the resu
 will be success, once is success the qualification starts.
 
 ### Qualification
-Once the client is already validated, there is a fake method to qualificate the client with a score (a random number between 0 and 100), them the prospect is created with the current data.
+Once the client is already validated, there is a fake method to qualificate the client with a score (a random number between 0 and 100), then the prospect is created with the current data.
 
 
 ## Prospects
@@ -26,5 +26,6 @@ Users can check the prospect history from every client validation. In this chall
 - Improve the errors handling (Avoid window alerts).
 - Disable creation actions when there is a validation running.
 - Improve form validations when creating clients.
-- Improve test cases.
+- Improve form UX, try to help the users to prevent errors instead of just inform them.
+- Improve and add unit tests.
 - Add animation to some actions.
