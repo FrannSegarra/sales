@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons'
-import { faBirthdayCake, faIdCard, faCircleMinus, faCirclePlus, faUserCircle, faCircle } from '@fortawesome/free-solid-svg-icons'
+import { faBirthdayCake, faIdCard, faCircleMinus, faCirclePlus, faUserCircle, faCircle  } from '@fortawesome/free-solid-svg-icons'
 
 import classesName from './Client.module.css';
 
@@ -15,12 +15,15 @@ const ClientCard = (props) => {
         onClick={() => setShowSecondaryInfo(!showSecondaryInfo)}
         icon={showSecondaryInfo ? faCircleMinus : faCirclePlus}
         className={classesName.iconButton}
+        size='lg'
       />
     );
 
   return (
     <div className={classesName.clientDetails}>
-      <h1><FontAwesomeIcon icon={faUserCircle} className={classesName.icon}/> {props.client.firstName} {props.client.lastName}</h1>
+      <h1>
+        <FontAwesomeIcon icon={faUserCircle} className={classesName.icon}/> {props.client.firstName} {props.client.lastName + ' '} 
+      </h1>
       {
         showSecondaryInfo && 
         <div className={classesName.secondaryInfo}>

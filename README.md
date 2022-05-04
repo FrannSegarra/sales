@@ -1,10 +1,14 @@
-# Getting Started with Create React App
+# Sales Challenge
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Is basically a sales pipeline where leads could convert
+into prospects for a company. In order to convert them into prospects, users have to
+start a validation process.
 
-## Available Scripts
+## Clients
 
-In the project directory, you can run:
+Users can create, edit, validate and remove clients from this application.
+
+
 
 ### `npm start`
 

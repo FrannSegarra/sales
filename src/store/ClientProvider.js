@@ -1,51 +1,39 @@
 import { useReducer } from 'react';
 import { Client } from '../models/client.model';
-import { Prospect } from '../models/prospect.model';
 
 import ClientsContext from './clients-context';
 
 const dummyClientData = {
-  id: 39597600,
+  id: '39597600',
   birthdate: new Date(),
   firstName: 'Francisco',
   lastName: 'Segarra',
   email: 'franciscosegarra@hotmail.com'
 };
 
-const dummyProspectData = {
-  id: 1,
-  client: new Client(dummyClientData),
-  score: 50
-};
-
-const dummyProspectData2 = {
-  id: 2,
-  client: new Client(dummyClientData),
-  score: 70
-};
-
 const defaultState = {
   clients: [
     new Client(dummyClientData)
   ],
-  prospects: [
-    new Prospect(dummyProspectData), new Prospect(dummyProspectData2)
-  ]
+  prospects: []
 }
 
 const clientsReducer = (state, action) => {
   if (action.type === 'ADD_CLIENT') {
-    let existingClient = state.clients.find(
-      (client) => client.id === action.client.id 
-    );
-    
-    if (existingClient) {
-      throw new Error('The client already exists.');
-    } else {
-      return {
-        clients: [action.client, ...state.clients],
-        prospects: state.prospects
-      }
+    return {
+      clients: [action.client, ...state.clients],
+      prospects: state.prospects
+    }
+  }
+
+  if (action.type === 'UPDATE_CLIENT') {
+    const index = state.clients.findIndex((client) => client.id === action.client.id);
+    const copy = [...state.clients];
+    copy[index] = action.client;
+
+    return {
+      clients: copy,
+      prospects: state.prospects
     }
   }
 
@@ -57,17 +45,9 @@ const clientsReducer = (state, action) => {
   }
 
   if (action.type === 'ADD_PROSPECT') {
-    let existingProspect = state.prospects.find(
-      (prospect) => prospect.id === action.prospect.id 
-    );
-    
-    if (existingProspect) {
-      throw new Error('The Prospect already exists.');
-    } else {
-      return {
-        clients: state.clients,
-        prospects: [action.prospect, ...state.prospects]
-      }
+    return {
+      clients: state.clients,
+      prospects: [action.prospect, ...state.prospects]
     }
   }
 
@@ -95,6 +75,10 @@ const ClientProvider = (props) => {
     dispatchClientAction({ type: 'ADD_CLIENT', client: client });
   }
 
+  const updateClientHandler = (client) => {
+    dispatchClientAction({ type: 'UPDATE_CLIENT', client: client });
+  }
+
   const removeClientHandler = (id) => {
     dispatchClientAction({ type: 'REMOVE_CLIENT', id: id });
   }
@@ -115,6 +99,7 @@ const ClientProvider = (props) => {
     clients: clientState.clients,
     prospects: clientState.prospects,
     addClient: addClientHandler,
+    updateClient: updateClientHandler,
     removeClient: removeClientHandler,
     addProspect: addProspectHandler,
     removeProspect: removeProspectHandler,

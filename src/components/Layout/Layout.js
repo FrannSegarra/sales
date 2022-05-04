@@ -8,11 +8,11 @@ const Layout = (props) => {
   return (
     <Fragment>
       <Header/>
-      <body className={classes.body}>
+      <div className={classes.body}>
         <Card>
           {props.children}
         </Card>
-      </body>
+      </div>
       <Footer/>
     </Fragment>
   )

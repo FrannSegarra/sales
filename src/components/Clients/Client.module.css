@@ -12,8 +12,7 @@
   display: flex;
   flex-direction: column;
   width: 25%;
-  padding-top: 0.4em;
-  padding-right: 0.5em;
+  padding: 1em 0.5em 0.7em 0;
 }
 
 .item .actions button {
@@ -27,14 +26,16 @@
   align-items: center;
   border-radius: 25px;
   font-weight: bold;
-  margin-bottom: 0.4em;
+  margin-bottom: 0.5em;
 }
 
-.item .actions button.danger {
+.item .actions button.danger,
+.form button.danger {
   background-color: rgb(163 36 15 / 96%);
 }
 
-.item .actions button.danger:hover {
+.item .actions button.danger:hover,
+.form button.danger:hover {
   background-color: rgba(250, 147, 129, 0.753);
 }
 
@@ -154,4 +155,24 @@
 .titleButton:disabled {
   cursor: not-allowed;
   background-color: rgba(124, 172, 238, 0.75);
+}
+
+.modalTitle {
+  margin: 0 0 0.3em 0;
+  font-size: 1.5em;
+  border-bottom: 2px solid #ccc;
+}
+
+.form {
+  margin-top: 1.5em;
+  width: 100%;
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.formActions button {
+  margin-left: 0.5em;
 }
